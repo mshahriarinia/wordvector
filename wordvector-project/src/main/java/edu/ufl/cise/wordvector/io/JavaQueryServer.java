@@ -18,8 +18,8 @@ import java.util.regex.Pattern;
 
 public class JavaQueryServer {
 
-	private HashMap<String, float[]> wvTable = new HashMap();
-	String[] keysList;
+	public HashMap<String, float[]> wvTable = new HashMap();
+	public String[] keysList;
 
 	public static void main(String[] args) throws Exception {
 		System.out.println("Hi");
@@ -44,7 +44,7 @@ public class JavaQueryServer {
 
 	}
 
-	private void console() throws Exception {
+	public void console() throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		String OPERATORS_PATTERN = "\\+|\\-";
@@ -110,7 +110,7 @@ public class JavaQueryServer {
 		System.out.println("Exitted");
 	}
 
-	private void loadVectors() throws Exception {
+	public void loadVectors() throws Exception {
 		String serverPath = "/home/msnia/zproject/workspaces/w2v/glove.840B.300d.txt.csv";
 		String localPath = "/Users/morteza/Downloads/word2vec/sample.csv";
 		String path = null;
