@@ -22,6 +22,7 @@ public class JavaQueryServer {
 	public HashMap<String, WordVector> wvTable = new HashMap();
 	public String[] keysList;
 	private final int K = 30; // K as in top k
+	private final int THRESHOLD = 5;
 
 	public static void main(String[] args) throws Exception {
 		System.out.println("Hi");
@@ -130,10 +131,10 @@ public class JavaQueryServer {
 
 						System.out.println("=====\t" + Arrays.toString(res));
 						System.out.println("Result Length: " + LinearAlgebra.df.format(LinearAlgebra.norm(res)));
-						getKNN(res, listOperandVectors); // gets and prints
-																							// them
+						
 
 					}
+					getKNN(res, listOperandVectors); // gets and prints them
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -158,13 +159,11 @@ public class JavaQueryServer {
 			wvdmi.distance = LinearAlgebra.distance(keyWV.getVectorArray(), vector);
 			listEuclidean.add(wvdmi);
 
-			WordVectorDistance wvdmi2 = new WordVectorDistance();
-			wvdmi2.wordVector = keyWV;
-			wvdmi2.distance = LinearAlgebra.cossim(keyWV.getVectorArray(), vector);
-
-			wvdmi.cossimDistance = wvdmi2.distance;
-
-			listCossim.add(wvdmi2);
+			// WordVectorDistance wvdmi2 = new WordVectorDistance();
+			// wvdmi2.wordVector = keyWV;
+			// wvdmi2.distance = LinearAlgebra.cossim(keyWV.getVectorArray(), vector);
+			// wvdmi.cossimDistance = wvdmi2.distance;
+			// listCossim.add(wvdmi2);
 
 		}
 
@@ -179,26 +178,27 @@ public class JavaQueryServer {
 			for (int j = 0; j < listOperandVectors.size(); j++) {
 				WordVectorDistance aTopKwvd = topKEuclidean.get(i);
 				WordVector anOperandwv = listOperandVectors.get(j);
-				if (aTopKwvd.wordVector.distance(anOperandwv) < 1)
+				if (aTopKwvd.wordVector.distance(anOperandwv) < THRESHOLD)
 					toremove.add(aTopKwvd);
 			}
 		}
 
-	//	topKEuclidean.removeAll(toremove);
+		// topKEuclidean.removeAll(toremove);
 
 		for (WordVectorDistance wvdmi : topKEuclidean) {
 			if (!toremove.contains(wvdmi))
 				System.out.println(wvdmi);
 		}
 
-		System.out.println("----------------------------- COSSIM");
-
-		List<WordVectorDistance> topKCossim = com.google.common.collect.Ordering.natural().leastOf(listCossim, K);
-		listCossim.sort(WordVectorDistance.COMPARATOR);
-
-		for (WordVectorDistance wvdmi : topKCossim) {
-			System.out.println(wvdmi);
-		}
+		// System.out.println("----------------------------- COSSIM");
+		//
+		// List<WordVectorDistance> topKCossim =
+		// com.google.common.collect.Ordering.natural().leastOf(listCossim, K);
+		// listCossim.sort(WordVectorDistance.COMPARATOR);
+		//
+		// for (WordVectorDistance wvdmi : topKCossim) {
+		// System.out.println(wvdmi);
+		// }
 
 		return topKEuclidean;
 	}
