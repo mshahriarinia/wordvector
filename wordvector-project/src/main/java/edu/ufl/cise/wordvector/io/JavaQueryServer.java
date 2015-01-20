@@ -8,7 +8,6 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -21,6 +20,7 @@ public class JavaQueryServer {
 
 	public HashMap<String, float[]> wvTable = new HashMap();
 	public String[] keysList;
+	private final int K = 30; // K as in top k
 
 	public static void main(String[] args) throws Exception {
 		System.out.println("Hi");
@@ -50,7 +50,7 @@ public class JavaQueryServer {
 
 		String OPERATORS_PATTERN = "\\+|\\-";
 		String queryStr = "";
-		float[] res = new float[WordVector.VECTOR_LENGTH];
+		float[] res = new float[LinearAlgebra.VECTOR_LENGTH];
 
 		System.out.print("> ");
 
@@ -85,18 +85,16 @@ public class JavaQueryServer {
 						if (operandChar == '+') {
 							System.out.println('+');
 							System.out.println(operands[i + 1] + "\t" + Arrays.toString(tempVar));
-							res = WordVector.add(res, tempVar);
+							res = LinearAlgebra.add(res, tempVar);
 						} else if (operandChar == '-') {
 							System.out.println('-');
 							System.out.println(operands[i + 1] + "\t" + Arrays.toString(tempVar));
-							res = WordVector.subtract(res, tempVar);
+							res = LinearAlgebra.subtract(res, tempVar);
 						}
 
 						System.out.println("=====\t" + Arrays.toString(res));
-						List<WordVectorDistanceMapItem> knnlist = getKNN(res);
-						for (WordVectorDistanceMapItem wvdmi : knnlist) {
-							System.out.println(wvdmi);
-						}
+						System.out.println("Length:" + LinearAlgebra.df.format(LinearAlgebra.norm(res)));
+						List<WordVectorDistanceMapItem> knnlist = getKNN(res); // gets and prints them
 
 					}
 
@@ -140,35 +138,46 @@ public class JavaQueryServer {
 	}
 
 	private List<WordVectorDistanceMapItem> getKNN(float[] vector) {
-		ArrayList<WordVectorDistanceMapItem> list = new ArrayList<WordVectorDistanceMapItem>();
+		ArrayList<WordVectorDistanceMapItem> listEuclidean = new ArrayList<WordVectorDistanceMapItem>();
+		ArrayList<WordVectorDistanceMapItem> listCossim = new ArrayList<WordVectorDistanceMapItem>();
 
 		Iterator<String> keyIterator = wvTable.keySet().iterator();
 		while (keyIterator.hasNext()) {
 			String key = keyIterator.next();
+			float[] keyVector = wvTable.get(key);
+
 			WordVectorDistanceMapItem wvdmi = new WordVectorDistanceMapItem();
 			wvdmi.word = key;
-			wvdmi.distance = WordVector.distance(wvTable.get(key), vector);
-			list.add(wvdmi);
+			wvdmi.distance = LinearAlgebra.distance(keyVector, vector);
+			listEuclidean.add(wvdmi);
+
+			WordVectorDistanceMapItem wvdmi2 = new WordVectorDistanceMapItem();
+			wvdmi2.word = key;
+			wvdmi2.distance = LinearAlgebra.cossim(keyVector, vector);
+			listCossim.add(wvdmi2);
+
 		}
 
-		List<WordVectorDistanceMapItem> l = com.google.common.collect.Ordering.natural().leastOf(list, 10);
-		list.sort(new Comparator<WordVectorDistanceMapItem>() {
+		System.out.println("-------------------------- EUCLIDEAN");
 
-			public int compare(WordVectorDistanceMapItem o1, WordVectorDistanceMapItem o2) {
-				if (o1.distance > o2.distance)
-					return 1;
-				else if (o1.distance < o2.distance)
-					return -1;
-				else
-					return 0;
-			}
-		});
+		List<WordVectorDistanceMapItem> topKEuclidean = com.google.common.collect.Ordering.natural().leastOf(listEuclidean,
+				K);
+		listEuclidean.sort(WordVectorDistanceMapItem.COMPARATOR);
 
-		for (WordVectorDistanceMapItem wvdmi : l) {
+		for (WordVectorDistanceMapItem wvdmi : topKEuclidean) {
 			System.out.println(wvdmi);
 		}
 
-		return l;
+		System.out.println("----------------------------- COSSIM");
+
+		List<WordVectorDistanceMapItem> topKCossim = com.google.common.collect.Ordering.natural().leastOf(listCossim, K);
+		listCossim.sort(WordVectorDistanceMapItem.COMPARATOR);
+
+		for (WordVectorDistanceMapItem wvdmi : topKCossim) {
+			System.out.println(wvdmi);
+		}
+
+		return topKEuclidean;
 	}
 
 }
