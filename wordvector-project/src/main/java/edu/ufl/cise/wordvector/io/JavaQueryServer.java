@@ -111,7 +111,7 @@ public class JavaQueryServer {
 	}
 
 	public void loadVectors() throws Exception {
-		String serverPath = "/home/msnia/zproject/workspaces/w2v/glove.840B.300d.txt.csv";
+		String serverPath = "/home/msnia/zproject/workspaces/w2v/sample.csv"; //glove.840B.300d.txt.csv";
 		String localPath = "/Users/morteza/Downloads/word2vec/sample.csv";
 		String path = null;
 		File f = new File(localPath);
