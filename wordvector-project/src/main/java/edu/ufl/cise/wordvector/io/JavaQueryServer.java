@@ -22,6 +22,7 @@ public class JavaQueryServer {
 	String[] keysList;
 
 	public static void main(String[] args) throws Exception {
+		System.out.println("Hi");
 
 		JavaQueryServer jqs = new JavaQueryServer();
 
