@@ -8,6 +8,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -111,7 +112,7 @@ public class JavaQueryServer {
 	}
 
 	public void loadVectors() throws Exception {
-		String serverPath = "/home/msnia/zproject/workspaces/w2v/sample.csv"; //glove.840B.300d.txt.csv";
+		String serverPath = "/home/msnia/zproject/workspaces/w2v/sample.csv"; // glove.840B.300d.txt.csv";
 		String localPath = "/Users/morteza/Downloads/word2vec/sample.csv";
 		String path = null;
 		File f = new File(localPath);
@@ -151,6 +152,21 @@ public class JavaQueryServer {
 		}
 
 		List<WordVectorDistanceMapItem> l = com.google.common.collect.Ordering.natural().leastOf(list, 10);
+		list.sort(new Comparator<WordVectorDistanceMapItem>() {
+
+			public int compare(WordVectorDistanceMapItem o1, WordVectorDistanceMapItem o2) {
+				if (o1.distance > o2.distance)
+					return 1;
+				else if (o1.distance < o2.distance)
+					return -1;
+				else
+					return 0;
+			}
+		});
+
+		for (WordVectorDistanceMapItem wvdmi : l) {
+			System.out.println(wvdmi);
+		}
 
 		return l;
 	}
