@@ -22,7 +22,7 @@ public class JavaQueryServer {
 	public HashMap<String, WordVector> wvTable = new HashMap();
 	public String[] keysList;
 	private final int K = 30; // K as in top k
-	private final int THRESHOLD = 5;
+	private final int THRESHOLD = 2;
 
 	public static void main(String[] args) throws Exception {
 		System.out.println("Hi");
