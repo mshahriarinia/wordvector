@@ -162,7 +162,8 @@ public class JavaQueryServer {
 			// WordVectorDistance wvdmi2 = new WordVectorDistance();
 			// wvdmi2.wordVector = keyWV;
 			// wvdmi2.distance = LinearAlgebra.cossim(keyWV.getVectorArray(), vector);
-			// wvdmi.cossimDistance = wvdmi2.distance;
+			 wvdmi.cossimDistance = LinearAlgebra.cossim(keyWV.getVectorArray(), vector);
+			 
 			// listCossim.add(wvdmi2);
 
 		}
