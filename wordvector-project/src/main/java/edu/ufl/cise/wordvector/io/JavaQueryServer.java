@@ -17,6 +17,14 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * loads a word vector file in csv format from glove project and provides a console to perform knn
+ * of arithmetic operations between words in the dictionary and/or given vectors of size the same as
+ * wordvector size. $ mvn exec:java -Dexec.mainClass="edu.ufl.cise.wordvector.App"
+ * 
+ * @author morteza
+ *
+ */
 public class JavaQueryServer {
 
 	public HashMap<String, WordVector> wvTable = new HashMap();
