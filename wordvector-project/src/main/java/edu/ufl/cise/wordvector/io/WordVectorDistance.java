@@ -29,7 +29,7 @@ public class WordVectorDistance implements Comparable<WordVectorDistance> {
 
 	@Override
 	public String toString() {
-		return wordVector.getWord() + " " + LinearAlgebra.df.format(distance) + " \t cossim: "
+		return wordVector.getWord() + "\t" + LinearAlgebra.df.format(distance) + " \tcossim:\t"
 				+ LinearAlgebra.df.format(cossimDistance);
 	}
 }

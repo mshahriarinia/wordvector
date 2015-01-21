@@ -22,7 +22,8 @@ public class JavaQueryServer {
 	public HashMap<String, WordVector> wvTable = new HashMap();
 	public String[] keysList;
 	private final int K = 30; // K as in top k
-	private final int THRESHOLD = 2;
+	private final int THRESHOLD = 2; // discard closer than this distance
+	String OPERATORS_PATTERN = "\\+|_";
 
 	public static void main(String[] args) throws Exception {
 		System.out.println("Hi");
@@ -73,15 +74,16 @@ public class JavaQueryServer {
 
 			wvTable.put(wv.getWord(), wv);
 		}
+		sc.close();
 	}
 
 	public void console() throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-		String OPERATORS_PATTERN = "\\+|\\-";
 		String queryStr = "";
 		float[] res = new float[LinearAlgebra.VECTOR_LENGTH];
 
+		System.out.println();
 		System.out.print("> ");
 
 		while ((queryStr = br.readLine()) != null && !queryStr.equals("quit")) {
@@ -95,19 +97,18 @@ public class JavaQueryServer {
 					System.out.println();
 					System.out.println("Step by step operations: ");
 
-					List<WordVector> listOperandVectors = new LinkedList<WordVector>();
+					List<float[]> listOperandVectors = new LinkedList<float[]>();
 
 					WordVector tempWV = wvTable.get(operands[0]);
 					res = tempWV.getVectorArray();
-					listOperandVectors.add(tempWV);
+					listOperandVectors.add(res);
 
 					// print the first operand
 					System.out.println(operands[0] + "\t" + Arrays.toString(res));
 
 					ArrayList<Integer> positions = new ArrayList();
 					Pattern p = Pattern.compile(OPERATORS_PATTERN); // insert
-					// your pattern here
-					Matcher m = p.matcher(queryStr);
+					Matcher m = p.matcher(queryStr); // your pattern here
 
 					while (m.find()) {
 						int operatorPosition = m.start();
@@ -116,22 +117,27 @@ public class JavaQueryServer {
 
 					for (int i = 0; i < positions.size(); i++) {
 						char operandChar = queryStr.charAt(positions.get(i));
-						tempWV = wvTable.get(operands[i + 1]);
-						listOperandVectors.add(tempWV);
+						float[] tempVector = null;
+						if (operands[i + 1].contains("["))
+							tempVector = LinearAlgebra.toFloatArray(operands[i + 1]); // convert float array from
+						else { // string to actual float
+							tempWV = wvTable.get(operands[i + 1]);
+							tempVector = tempWV.getVectorArray();
+						}
+						listOperandVectors.add(tempVector);
 
 						if (operandChar == '+') {
 							System.out.println('+');
-							res = LinearAlgebra.add(res, tempWV.getVectorArray());
-						} else if (operandChar == '-') {
-							System.out.println('-');
-							res = LinearAlgebra.subtract(res, tempWV.getVectorArray());
+							res = LinearAlgebra.add(res, tempVector);
+						} else if (operandChar == '_') {
+							System.out.println('_');
+							res = LinearAlgebra.subtract(res, tempVector);
 						}
 
-						System.out.println(operands[i + 1] + "\t" + Arrays.toString(tempWV.getVectorArray()));
+						System.out.println(operands[i + 1] + "\t" + Arrays.toString(tempVector));
 
 						System.out.println("=====\t" + Arrays.toString(res));
 						System.out.println("Result Length: " + LinearAlgebra.df.format(LinearAlgebra.norm(res)));
-						
 
 					}
 					getKNN(res, listOperandVectors); // gets and prints them
@@ -144,9 +150,16 @@ public class JavaQueryServer {
 		System.out.println("Exitted");
 	}
 
-	private List<WordVectorDistance> getKNN(float[] vector, List<WordVector> listOperandVectors) {
+	/**
+	 * order by cosine didn't work well and resulted in just random results
+	 * 
+	 * @param vector
+	 * @param listOperandVectors
+	 * @return
+	 */
+	private List<WordVectorDistance> getKNN(float[] vector, List<float[]> listOperandVectors) {
 		ArrayList<WordVectorDistance> listEuclidean = new ArrayList<WordVectorDistance>();
-		ArrayList<WordVectorDistance> listCossim = new ArrayList<WordVectorDistance>();
+		// ArrayList<WordVectorDistance> listCossim = new ArrayList<WordVectorDistance>();
 
 		Iterator<String> keyIterator = wvTable.keySet().iterator();
 		while (keyIterator.hasNext()) { // iterate over all items in table
@@ -162,8 +175,8 @@ public class JavaQueryServer {
 			// WordVectorDistance wvdmi2 = new WordVectorDistance();
 			// wvdmi2.wordVector = keyWV;
 			// wvdmi2.distance = LinearAlgebra.cossim(keyWV.getVectorArray(), vector);
-			 wvdmi.cossimDistance = LinearAlgebra.cossim(keyWV.getVectorArray(), vector);
-			 
+			wvdmi.cossimDistance = LinearAlgebra.cossim(keyWV.getVectorArray(), vector);
+
 			// listCossim.add(wvdmi2);
 
 		}
@@ -174,21 +187,15 @@ public class JavaQueryServer {
 		listEuclidean.sort(WordVectorDistance.COMPARATOR);
 
 		// filter out very close terms to the query nodes themselves
-		List<WordVectorDistance> toremove = new LinkedList<WordVectorDistance>();
 		for (int i = 0; i < K; i++) {
+			boolean isWithinDistanceThreshold = true;
+			WordVectorDistance aTopKwvd = topKEuclidean.get(i);
 			for (int j = 0; j < listOperandVectors.size(); j++) {
-				WordVectorDistance aTopKwvd = topKEuclidean.get(i);
-				WordVector anOperandwv = listOperandVectors.get(j);
-				if (aTopKwvd.wordVector.distance(anOperandwv) < THRESHOLD)
-					toremove.add(aTopKwvd);
+				if (aTopKwvd.wordVector.distance(listOperandVectors.get(j)) < THRESHOLD)
+					isWithinDistanceThreshold = false;
 			}
-		}
-
-		// topKEuclidean.removeAll(toremove);
-
-		for (WordVectorDistance wvdmi : topKEuclidean) {
-			if (!toremove.contains(wvdmi))
-				System.out.println(wvdmi);
+			if (isWithinDistanceThreshold)
+				System.out.println(aTopKwvd);
 		}
 
 		// System.out.println("----------------------------- COSSIM");
