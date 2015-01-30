@@ -1,48 +1,48 @@
 #!/bin/bash          
-
-cat x00 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x00.subj.namespace &
-cat x01 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x01.subj.namespace &
-cat x02 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x02.subj.namespace &
-cat x03 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x03.subj.namespace &
-cat x04 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x04.subj.namespace &
-cat x05 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x05.subj.namespace &
-cat x06 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x06.subj.namespace &
-cat x07 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x07.subj.namespace &
-cat x08 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x08.subj.namespace &
-cat x09 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x09.subj.namespace &
-cat x10 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x10.subj.namespace &
-cat x11 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x11.subj.namespace &
-cat x12 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x12.subj.namespace &
-cat x13 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x13.subj.namespace &
-cat x14 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x14.subj.namespace &
-cat x15 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x15.subj.namespace &
-cat x16 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x16.subj.namespace &
-cat x17 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x17.subj.namespace &
-cat x18 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x18.subj.namespace &
-cat x19 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x19.subj.namespace &
-cat x20 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x20.subj.namespace &
-cat x21 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x21.subj.namespace &
-cat x22 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x22.subj.namespace &
-cat x23 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x23.subj.namespace &
-cat x24 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x24.subj.namespace &
-cat x25 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x25.subj.namespace &
-cat x26 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x26.subj.namespace &
-cat x27 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x27.subj.namespace &
-cat x28 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x28.subj.namespace &
-cat x29 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x29.subj.namespace &
-cat x30 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x30.subj.namespace &
-cat x31 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x31.subj.namespace &
-cat x32 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x32.subj.namespace &
-cat x33 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x33.subj.namespace &
-cat x34 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x34.subj.namespace &
-cat x35 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x35.subj.namespace &
-cat x36 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x36.subj.namespace &
-cat x37 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x37.subj.namespace &
-cat x38 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x38.subj.namespace &
-cat x39 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x39.subj.namespace &
-cat x40 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x40.subj.namespace &
-cat x41 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x41.subj.namespace &
-cat x42 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x42.subj.namespace &
-cat x43 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x43.subj.namespace &
-cat x44 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x44.subj.namespace &
-cat x45 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > x45.subj.namespace &
+cat x00 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x00.subj.namespace &
+cat x01 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x01.subj.namespace &
+cat x02 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x02.subj.namespace &
+cat x03 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x03.subj.namespace &
+cat x04 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x04.subj.namespace &
+cat x05 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x05.subj.namespace &
+cat x06 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x06.subj.namespace &
+cat x07 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x07.subj.namespace &
+cat x08 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x08.subj.namespace &
+cat x09 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x09.subj.namespace &
+cat x10 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x10.subj.namespace &
+cat x11 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x11.subj.namespace &
+cat x12 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x12.subj.namespace &
+cat x13 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x13.subj.namespace &
+cat x14 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x14.subj.namespace &
+cat x15 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x15.subj.namespace &
+cat x16 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x16.subj.namespace &
+cat x17 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x17.subj.namespace &
+cat x18 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x18.subj.namespace &
+cat x19 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x19.subj.namespace &
+cat x20 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x20.subj.namespace &
+cat x21 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x21.subj.namespace &
+cat x22 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x22.subj.namespace &
+cat x23 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x23.subj.namespace &
+cat x24 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x24.subj.namespace &
+cat x25 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x25.subj.namespace &
+cat x26 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x26.subj.namespace &
+cat x27 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x27.subj.namespace &
+cat x28 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x28.subj.namespace &
+cat x29 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x29.subj.namespace &
+cat x30 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x30.subj.namespace &
+cat x31 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x31.subj.namespace &
+cat x32 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x32.subj.namespace &
+cat x33 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x33.subj.namespace &
+cat x34 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x34.subj.namespace &
+cat x35 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x35.subj.namespace &
+cat x36 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x36.subj.namespace &
+cat x37 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x37.subj.namespace &
+cat x38 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x38.subj.namespace &
+cat x39 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x39.subj.namespace &
+cat x40 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x40.subj.namespace &
+cat x41 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x41.subj.namespace &
+cat x42 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x42.subj.namespace &
+cat x43 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x43.subj.namespace &
+cat x44 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x44.subj.namespace &
+cat x45 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x45.subj.namespace &
+cat x46 | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' | sort | uniq > x45.subj.namespace &
