@@ -12,12 +12,12 @@ Extract type.object.name
 cat freebase-rdf-latest | sed -n 's;<http://rdf.freebase.com/ns/\([^>]*\)>\s*<http://rdf.freebase.com/ns/type.object.name>\s"\([^"]*\)"@en.*;\1 \t \2;p' | head
 ```
 
-Determine subj Unique name spaces
+Determine *subject* Unique name spaces
 ```
 cat freebase-rdf-latest | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > freebase-rdf-latest.subj.namespae
 ```
 
-Determine obj Unique name spaces
+Determine *predicate* Unique name spaces
 ```
 cat freebase-rdf-latest | sed -n 's;<[^>]*>\s*<\([^>]*\)/\([^>]*\)>.*;\1 \t \2;p' | head -n 100000 | sort | uniq  
 ```
