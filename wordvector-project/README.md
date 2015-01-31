@@ -1,7 +1,12 @@
 
 
+# To Run
 
+```
+mvn exec:java -Dexec.mainClass="edu.ufl.cise.wordvector.App"
+```
 
+# Preprocessing
 Split freebase to enable parallel processing
 ```
 split ../freebase-rdf-latest -l 60000000 -d
@@ -25,14 +30,10 @@ cat freebase-rdf-latest | sed -n 's;<[^>]*>\s*<\([^>]*\)/\([^>]*\)>.*;\1 \t \2;p
 ```
 
 
- Yan's snippets
+## Yan's snippets
 remove name spaces
 ```
 zcat freebase-rdf-latest.gz | sed -n 's;<http://rdf.freebase.com/ns/\([^>]*\)>\s*<http://rdf.freebase.com/ns/\([^>]*\)>\s*<http://rdf.freebase.com/ns/\([^]]*\)>.*;\1 \2 \3;p' | head
 zcat freebase-rdf-latest.gz | sed -n 's;<http://rdf.freebase.com/ns/\([^>]*\)>\s*<http://rdf.freebase.com/ns/\([^>]*\)>\s*"\([^"]*\)".*;\1 \2 \3;p' | head
 ```
 
-
-```
-mvn exec:java -Dexec.mainClass="edu.ufl.cise.wordvector.App"
-```
