@@ -19,7 +19,9 @@ sed '/^.\{100\}..*/d' freebase-rdf-latest.subj.name > freebase-rdf-latest.subj.n
 sed '/[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/d'  freebase-rdf-latest.subj.name.shortlines > freebase-rdf-latest.subj.name.shortlines.nonum   # remove lines that contain more than 10 numbers in them (ISBN?)
 ```
 
-TODO: Extract <http://rdf.freebase.com/ns/astronomy.astronomical_observatory.discoveries>     <http://www.w3.org/2000/01/rdf-schema#label>    "Discoveries"@en
+TODO: Extract ```<http://rdf.freebase.com/ns/astronomy.astronomical_observatory.discoveries>     <http://www.w3.org/2000/01/rdf-schema#label>    "Discoveries"@en```
+
+It can be used for ```<http://rdf.freebase.com/ns/m.03gzbb>   <http://rdf.freebase.com/ns/astronomy.astronomical_observatory.discoveries>     <http://rdf.freebase.com/ns/m.010f4hvb> .```
 ```
 cat freebase-rdf-latest | sed -n 's;<http://rdf.freebase.com/ns/\([^>]*\)>\s*<http://rdf.freebase.com/ns/type.object.name>\s"\([^"]*\)"@en.*;\1 \t \2;p' | head > freebase-rdf-latest.subj.name
 
