@@ -5,7 +5,10 @@
 
 
 
-
+Split freebase to enable parallel processing
+```
+split ../freebase-rdf-latest -l 60000000 -d
+```
 
 Extract type.object.name 
 ```
