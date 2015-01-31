@@ -19,6 +19,15 @@ sed '/^.\{100\}..*/d' freebase-rdf-latest.subj.name > freebase-rdf-latest.subj.n
 sed '/[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/d'  freebase-rdf-latest.subj.name.shortlines > freebase-rdf-latest.subj.name.shortlines.nonum   # remove lines that contain more than 10 numbers in them (ISBN?)
 ```
 
+TODO: Extract <http://rdf.freebase.com/ns/astronomy.astronomical_observatory.discoveries>     <http://www.w3.org/2000/01/rdf-schema#label>    "Discoveries"@en
+```
+cat freebase-rdf-latest | sed -n 's;<http://rdf.freebase.com/ns/\([^>]*\)>\s*<http://rdf.freebase.com/ns/type.object.name>\s"\([^"]*\)"@en.*;\1 \t \2;p' | head > freebase-rdf-latest.subj.name
+
+```
+
+=============
+
+
 Determine *subject* Unique name spaces
 ```
 cat freebase-rdf-latest | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > freebase-rdf-latest.subj.namespae
