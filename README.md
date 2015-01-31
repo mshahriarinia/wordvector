@@ -11,7 +11,7 @@ Extract type.object.name
 ```
 cat freebase-rdf-latest | sed -n 's;<http://rdf.freebase.com/ns/\([^>]*\)>\s*<http://rdf.freebase.com/ns/type.object.name>\s"\([^"]*\)"@en.*;\1 \t \2;p' | head > freebase-rdf-latest.subj.name
 sed '/^.\{100\}..*/d' freebase-rdf-latest.subj.name > freebase-rdf-latest.subj.name.shortlines   # extract only short lines
-sed '/[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/d'  freebase-rdf-latest.subj.name.shortlines > freebase-rdf-latest.subj.name.shortlines.nonum
+sed '/[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/d'  freebase-rdf-latest.subj.name.shortlines > freebase-rdf-latest.subj.name.shortlines.nonum   # remove lines that contain more than 10 numbers in them (ISBN?)
 ```
 
 Determine *subject* Unique name spaces
