@@ -23,7 +23,7 @@ TODO: Extract ```<http://rdf.freebase.com/ns/astronomy.astronomical_observatory.
 
 It can be used for ```<http://rdf.freebase.com/ns/m.03gzbb>   <http://rdf.freebase.com/ns/astronomy.astronomical_observatory.discoveries>     <http://rdf.freebase.com/ns/m.010f4hvb> .```
 ```
-cat freebase-rdf-latest | sed -n 's;<http://rdf.freebase.com/ns/\([^>]*\)>\s*<http://rdf.freebase.com/ns/type.object.name>\s"\([^"]*\)"@en.*;\1 \t \2;p' | head > freebase-rdf-latest.subj.name
+cat freebase-rdf-latest | sed -n 's;<http://rdf.freebase.com/ns/\([^>]*\)>\s*<http://www.w3.org/2000/01/rdf-schema#label>\s"\([^"]*\)"@en.*;\1 \t \2;p' > freebase-rdf-latest.subj.label
 
 ```
 
