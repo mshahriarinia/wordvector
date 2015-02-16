@@ -37,9 +37,15 @@ cat freebase-rdf-latest | sed -n 's;<\([^>]*\)/[^>]*>.*;\1;p' > freebase-rdf-lat
 
 Determine *predicate* Unique name spaces
 ```
-cat freebase-rdf-latest | sed -n 's;<[^>]*>\s*<\([^>]*\)/\([^>]*\)>.*;\1 \t \2;p' | head -n 100000 | sort | uniq  
+cat freebase-rdf-latest | sed -n 's;<[^>]*>\s*<\([^>]*\)/\([^>]*\)>.*;\1 \t \2;p' | sort | uniq  
 ```
 
+```
+cat *sorted > type.object.name.rdf.schema.label.all-sorted
+```
+
+
+==================
 
 ## Yan's snippets
 remove name spaces
