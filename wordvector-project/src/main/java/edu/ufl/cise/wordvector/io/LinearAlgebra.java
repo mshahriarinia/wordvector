@@ -2,19 +2,12 @@ package edu.ufl.cise.wordvector.io;
 
 import java.text.DecimalFormat;
 import java.util.Arrays;
-import java.util.function.Function;
-import java.util.regex.Pattern;
-
-import com.google.common.base.Preconditions;
-import com.google.common.base.Splitter;
-import com.google.common.collect.Lists;
-import com.google.common.primitives.Floats;
 
 public class LinearAlgebra {
 
 	public static final int VECTOR_LENGTH = 300;
 
-	public static final DecimalFormat df = new DecimalFormat("0.00");
+	public static final DecimalFormat df = new DecimalFormat("0.000");
 
 	// public static final float[] ZERO = new float[VECTOR_LENGTH];
 
